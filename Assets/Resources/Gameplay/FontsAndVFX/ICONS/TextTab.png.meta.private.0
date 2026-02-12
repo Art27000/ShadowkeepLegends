@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: b7d1ba21168883449beea4505ea32ba0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -707218496886905483
+    second: TextTab_0
+  - first:
+      213: -7738334963366433494
+    second: TextTab_1
+  - first:
+      213: 1254611493322247689
+    second: TextTab_2
+  - first:
+      213: 1602138553817256426
+    second: TextTab_3
+  - first:
+      213: -2630101565197072879
+    second: TextTab_4
+  - first:
+      213: 6946144213500932855
+    second: TextTab_5
+  - first:
+      213: 7033421915047980789
+    second: TextTab_6
+  - first:
+      213: -5347564967386572008
+    second: TextTab_7
+  - first:
+      213: 6051646096452306607
+    second: TextTab_8
+  - first:
+      213: -4484641795311447285
+    second: TextTab_9
+  - first:
+      213: 2128964303349684503
+    second: TextTab_10
+  - first:
+      213: 162009640896949433
+    second: TextTab_11
+  - first:
+      213: -2048622979038531269
+    second: TextTab_12
+  - first:
+      213: -8382102210468365657
+    second: TextTab_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TextTab_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 109
+        width: 27
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 575687a26847f26f0800000000000000
+      internalID: -707218496886905483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_1
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 109
+        width: 28
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2dee8ba959eb9490800000000000000
+      internalID: -7738334963366433494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_2
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 109
+        width: 27
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90e48968186496110800000000000000
+      internalID: 1254611493322247689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_3
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 109
+        width: 27
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae15c35b680fb3610800000000000000
+      internalID: 1602138553817256426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_4
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 109
+        width: 28
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 116ca33bf80008bd0800000000000000
+      internalID: -2630101565197072879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_5
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 96
+        width: 66
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f2bb542c59a56060800000000000000
+      internalID: 6946144213500932855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_6
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 109
+        width: 28
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fee1e197fbbb9160800000000000000
+      internalID: 7033421915047980789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_7
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 109
+        width: 27
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81b9999aef1a9c5b0800000000000000
+      internalID: -5347564967386572008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_8
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 109
+        width: 27
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa64b6dcf04cbf350800000000000000
+      internalID: 6051646096452306607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_9
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 109
+        width: 28
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b03579d3c0a53c1c0800000000000000
+      internalID: -4484641795311447285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_10
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 109
+        width: 27
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71915a011c99b8d10800000000000000
+      internalID: 2128964303349684503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_11
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 109
+        width: 27
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bce9d7f8e29f3200800000000000000
+      internalID: 162009640896949433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_12
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 109
+        width: 28
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b31b4bf2144d193e0800000000000000
+      internalID: -2048622979038531269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextTab_13
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 109
+        width: 27
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aa340a237accab80800000000000000
+      internalID: -8382102210468365657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TextTab_0: -707218496886905483
+      TextTab_1: -7738334963366433494
+      TextTab_10: 2128964303349684503
+      TextTab_11: 162009640896949433
+      TextTab_12: -2048622979038531269
+      TextTab_13: -8382102210468365657
+      TextTab_2: 1254611493322247689
+      TextTab_3: 1602138553817256426
+      TextTab_4: -2630101565197072879
+      TextTab_5: 6946144213500932855
+      TextTab_6: 7033421915047980789
+      TextTab_7: -5347564967386572008
+      TextTab_8: 6051646096452306607
+      TextTab_9: -4484641795311447285
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

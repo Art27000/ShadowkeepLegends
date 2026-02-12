@@ -1,0 +1,18 @@
+{
+  "projectFileVersion": 3,
+  "sourceFiles": [
+    "**/*.yarn"
+  ],
+  "excludeFiles": [
+    "**/*~/*",
+    "./Samples/Yarn Spinner*/*"
+  ],
+  "localisation": {
+    "ru": {
+      "assets": "Dialogue"
+    }
+  },
+  "baseLanguage": "ru",
+  "compilerOptions": {},
+  "definitionsFiles": []
+}

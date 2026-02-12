@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Tilemap
+  - Player
+  - Environment
+  - NonStickyWalls
+  - Background
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 332463507
+    locked: 0
+  - name: BackgroundFar
+    uniqueID: 3200398493
+    locked: 0
+  - name: Tilemap
+    uniqueID: 3624745377
+    locked: 0
+  - name: BackgroundNear
+    uniqueID: 1724833185
+    locked: 0
+  - name: Player
+    uniqueID: 1692543291
+    locked: 0
+  - name: Front
+    uniqueID: 4245795295
+    locked: 0
+  - name: UI
+    uniqueID: 1867815365
+    locked: 0
+  m_RenderingLayers:
+  - Default
+  - Light Layer 1
+  - Light Layer 2
+  - Light Layer 3
+  - Light Layer 4
+  - Light Layer 5
+  - Light Layer 6
+  - Light Layer 7

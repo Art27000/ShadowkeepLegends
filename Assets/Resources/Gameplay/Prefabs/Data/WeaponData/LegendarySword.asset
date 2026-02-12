@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 686a4709ac2d3cd4b9e11c2635e6e024, type: 3}
+  m_Name: LegendarySword
+  m_EditorClassIdentifier: 
+  weaponObj: {fileID: 450692772069778294, guid: 4f5c5547a7569e447ba198e95bc77978, type: 3}
+  weaponName: Legendary Sword
+  damage: 10
+  damageType: Slashing
+  weaponImage: {fileID: 4114978046252568184, guid: 4f5c5547a7569e447ba198e95bc77978, type: 3}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 686a4709ac2d3cd4b9e11c2635e6e024, type: 3}
+  m_Name: Club
+  m_EditorClassIdentifier: 
+  weaponObj: {fileID: 7254981221042774114, guid: 85d46e0db2c04ae49a1d4eb2d1aca7c8, type: 3}
+  weaponName: Club
+  damage: 3
+  damageType: Blunt
+  weaponImage: {fileID: 7761608416344453095, guid: 85d46e0db2c04ae49a1d4eb2d1aca7c8, type: 3}
