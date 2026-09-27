@@ -12,7 +12,7 @@ public class InterstitialAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSh
     private void Start()
     {
         adID = (Application.platform == RuntimePlatform.IPhonePlayer) ? iOSAdID : androidAdID;
-        LoadAd();
+        StartCoroutine(TryLoadAd());
     }
 
     void LoadAd()
