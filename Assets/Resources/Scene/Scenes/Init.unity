@@ -181,20 +181,6 @@ MonoBehaviour:
   androidGameID: 5961444
   iOSGameID: 5961445
   testMode: 1
---- !u!114 &3414962562552649022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8081632335057685033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 723d8023b1d8d78429a63f6a1b76cd3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  androidAdID: Interstitial_Android
-  iOSAdID: Interstitial_iOS
 --- !u!4 &5334546183482294149
 Transform:
   m_ObjectHideFlags: 0
@@ -223,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   adsInitializer: {fileID: 452369531141675805}
-  interstitialAds: {fileID: 3414962562552649022}
+  interstitialAds: {fileID: 8081632335057685034}
 --- !u!1 &8081632335057685033
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,8 +220,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5334546183482294149}
   - component: {fileID: 6581653562225288721}
-  - component: {fileID: 3414962562552649022}
   - component: {fileID: 452369531141675805}
+  - component: {fileID: 8081632335057685034}
   m_Layer: 0
   m_Name: AdsManager
   m_TagString: Untagged
@@ -243,6 +229,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!114 &8081632335057685034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8081632335057685033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67fbc81a0e472941bdb850500ad2f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp-firstpass::InterstitialAds
+  androidAdID: Interstitial_Android
+  iOSAdID: Interstitial_iOS
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -12,88 +12,72 @@ public class InterstitialAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSh
     private void Start()
     {
         adID = (Application.platform == RuntimePlatform.IPhonePlayer) ? iOSAdID : androidAdID;
-        StartCoroutine(TryLoadAd());
+        StartCoroutine(LoadWhenReady());
     }
 
-    void LoadAd()
+    // Loads an ad in the background. Does NOT show it вЂ” loading and showing
+    // are separate concerns now. Safe to call multiple times (e.g. to preload
+    // the next ad after one finishes).
+    private IEnumerator LoadWhenReady()
     {
-        if (AdsInitializer.IsInitialized)
+        if (!AdsInitializer.IsInitialized)
         {
-            Debug.Log("Загрузка межстраничной рекламы...");
-            Advertisement.Load(adID, this);
-        }
-    }
-    IEnumerator TryLoadAd()
-    {
-        if (AdsInitializer.IsInitialized)
-        {
-            Debug.Log("Загрузка межстраничной рекламы...");
-            Advertisement.Load(adID, this);
-
-            // Ждём пока реклама загрузится
-            yield return new WaitUntil(() => adLoaded);
-
-            // Когда загрузилась — показываем
-            ShowAd();
-        }
-        else
-        {
-            Debug.Log("Unity Ads ещё не инициализированы. Ждём...");
-            // Ждём пока инициализация завершится
+            Debug.Log("Unity Ads РµС‰С‘ РЅРµ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ. Р–РґС‘Рј...");
             yield return new WaitUntil(() => AdsInitializer.IsInitialized);
-            // После инициализации пробуем снова
-            yield return StartCoroutine(TryLoadAd());
         }
+
+        Debug.Log("Р—Р°РіСЂСѓР¶Р°РµРј РёРЅС‚РµСЂСЃС‚РёС†РёР°Р»СЊРЅСѓСЋ СЂРµРєР»Р°РјСѓ...");
+        Advertisement.Load(adID, this);
     }
 
+    // The ONLY method that actually shows an ad. Call this from a player
+    // action (e.g. a button click), never automatically from a load routine.
     public void ShowAd()
     {
         if (adLoaded)
         {
-            Debug.Log("Показ межстраничной рекламы...");
+            Debug.Log("РџРѕРєР°Р· РёРЅС‚РµСЂСЃС‚РёС†РёР°Р»СЊРЅРѕР№ СЂРµРєР»Р°РјС‹...");
             Advertisement.Show(adID, this);
             adLoaded = false;
         }
         else
         {
-            Debug.Log("Реклама ещё не загружена. Попробуем загрузить снова.");
-            StartCoroutine(TryLoadAd());
+            Debug.Log("Р РµРєР»Р°РјР° РµС‰С‘ РЅРµ Р·Р°РіСЂСѓР¶РµРЅР°. Р—Р°РїСѓСЃРєР°РµРј Р·Р°РіСЂСѓР·РєСѓ, РїРѕРєР°Р· РїСЂРѕРёР·РѕР№РґС‘С‚ РїСЂРё СЃР»РµРґСѓСЋС‰РµРј РІС‹Р·РѕРІРµ ShowAd().");
+            StartCoroutine(LoadWhenReady());
         }
     }
 
     // Callbacks
     public void OnUnityAdsAdLoaded(string placementId)
     {
-        Debug.Log("Реклама загружена: " + placementId);
+        Debug.Log("Р РµРєР»Р°РјР° Р·Р°РіСЂСѓР¶РµРЅР°: " + placementId);
         adLoaded = true;
     }
 
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
     {
-        Debug.LogError($"Ошибка загрузки рекламы: {error} - {message}");
+        Debug.LogError($"РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё СЂРµРєР»Р°РјС‹: {error} - {message}");
         adLoaded = false;
     }
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
-        Debug.LogError($"Ошибка показа рекламы: {error} - {message}");
+        Debug.LogError($"РћС€РёР±РєР° РїРѕРєР°Р·Р° СЂРµРєР»Р°РјС‹: {error} - {message}");
     }
 
     public void OnUnityAdsShowStart(string placementId)
     {
-        Debug.Log("Старт показа рекламы: " + placementId);
-
+        Debug.Log("РќР°С‡Р°С‚ РїРѕРєР°Р· СЂРµРєР»Р°РјС‹: " + placementId);
     }
 
     public void OnUnityAdsShowClick(string placementId)
     {
-        Debug.Log("Клик по рекламе: " + placementId);
-
+        Debug.Log("РљР»РёРє РїРѕ СЂРµРєР»Р°РјРµ: " + placementId);
     }
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        Debug.Log("Реклама завершена.");
-        TryLoadAd(); // сразу готовим следующую
+        Debug.Log("РџРѕРєР°Р· СЂРµРєР»Р°РјС‹ Р·Р°РІРµСЂС€С‘РЅ.");
+        StartCoroutine(LoadWhenReady()); // preload the next ad, doesn't auto-show
     }
 }
