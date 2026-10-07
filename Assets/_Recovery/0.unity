@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1616002168}
   - component: {fileID: 1616002169}
-  - component: {fileID: 1616002171}
   m_Layer: 0
   m_Name: Bootstrapper
   m_TagString: Untagged
@@ -167,18 +166,6 @@ MonoBehaviour:
   nextSceneName: Menu
   maxAdsInitWait: 5
   minSplashTime: 1
---- !u!225 &1616002171
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616002166}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &452369531141675805
 MonoBehaviour:
   m_ObjectHideFlags: 0

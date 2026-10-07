@@ -118,7 +118,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ads": {
-      "version": "4.16.4",
+      "version": "4.19.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -287,7 +287,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.levelplay": {
-      "version": "9.0.0",
+      "version": "9.5.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
