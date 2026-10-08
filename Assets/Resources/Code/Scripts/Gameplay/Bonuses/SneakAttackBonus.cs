@@ -1,18 +1,12 @@
-using UnityEngine;
-
-public class SneakAttackBonus : IBonus
+/// <summary>Скрытая атака: +1 к урону, если ловкость атакующего выше ловкости цели.</summary>
+public class SneakAttackBonus : BonusBase
 {
-    public void OnAttack(CharacterBase self, CharacterBase target, GameController context)
+    public override void OnAttack(DamageContext ctx)
     {
-        if (self.agility > target.agility)
+        if (ctx.Attacker.agility > ctx.Defender.agility)
         {
-            self.TempDamageModifier = 1;
-            context.ShowLog("Active bonus: Sneak Attack");
+            ctx.Bonus += 1;
+            ctx.Log("Active bonus: Sneak Attack");
         }
-
     }
-
-    public void OnDefense(CharacterBase self, CharacterBase attacker, GameController context) { }
-    public void OnTurnStart(CharacterBase self, GameController context) { }
 }
-

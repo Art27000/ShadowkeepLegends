@@ -1,24 +1,12 @@
-using UnityEngine;
-
-public class ShieldBonus : IBonus
+/// <summary>Щит: -3 к получаемому урону, если сила персонажа выше силы атакующего.</summary>
+public class ShieldBonus : BonusBase
 {
-    public void OnAttack(CharacterBase self, CharacterBase target, GameController context) { }
-    public void OnDefense(CharacterBase self, CharacterBase attacker, GameController context)
+    public override void OnDefense(DamageContext ctx)
     {
-        if (context != null && (self.strength > attacker.strength))
+        if (ctx.Defender.strength > ctx.Attacker.strength)
         {
-            self.TempDamageModifier = 3;
-            context.ShowLog("Active bonus: Shield");
-        }
-        else if(context != null)
-        {
-            self.TempDamageModifier = 0;
-        }
-        else
-        {
-            if (context == null)
-                Debug.Log("context is null");
+            ctx.Reduction += 3;
+            ctx.Log("Active bonus: Shield");
         }
     }
-    public void OnTurnStart(CharacterBase self, GameController context) { }
 }

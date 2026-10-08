@@ -1,16 +1,12 @@
-using UnityEngine;
-
-public class ImmuneToSlashingBonus : IBonus
+/// <summary>Слайм: рубящее оружие не наносит урона (урон от силы и эффектов остаётся).</summary>
+public class ImmuneToSlashingBonus : BonusBase
 {
-    public void OnDefense(CharacterBase self, CharacterBase attacker, GameController context)
+    public override void OnDefense(DamageContext ctx)
     {
-        if (attacker?.weapon != null && attacker.weapon.damageType == "Slashing")
+        if (ctx.DamageType == DamageType.Slashing)
         {
-            context?.ShowLog($"{self.name} has immunity to slashing weapons!");
-            self.TempDamageModifier = attacker.weapon.getDamage(); // �������� ���� �� ������
+            ctx.WeaponDamage = 0;
+            ctx.Log($"{ctx.Defender.name} has immunity to slashing weapons!");
         }
     }
-
-    public void OnAttack(CharacterBase self, CharacterBase target, GameController context) { }
-    public void OnTurnStart(CharacterBase self, GameController context) { }
 }

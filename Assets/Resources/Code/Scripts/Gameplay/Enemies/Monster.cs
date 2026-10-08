@@ -1,42 +1,17 @@
-﻿using System.Collections;
 using UnityEngine;
 
 public class Monster : EnemyController
 {
-    private Animator m_animator;
     public EnemyData data;
+
+    private Animator m_animator;
+    private bool hasAttack2;
+
     void Start()
     {
         m_animator = GetComponent<Animator>();
-        weapon = data.reward;
-    }
-    public override void GenerateStats()
-    {
-        Debug.Log("Запустили генерацию статов моба");
-        strength = data.strength;
-        agility = data.agility;
-        endurance = data.endurance;
-        maxHp = GetMaxHp();
-        currentHp = maxHp;
-        activeBonuses = EnemyAbilityRegistry.GetAbilitiesForEnemy(data.enemyName);
-    }
-    public override int GetMaxHp()
-    {
-        return data.maxHp + data.endurance;
-    }
+        weapon = data.reward; // награда за победу, не оружие самого монстра
 
-    public void Die()
-    {
-        m_animator.SetTrigger("Death");
-    }
-    public void Hurt()
-    {
-        m_animator.SetTrigger("Hurt");
-    }
-
-    public override void Attack()
-    {
-        bool hasAttack2 = false;
         foreach (var param in m_animator.parameters)
         {
             if (param.type == AnimatorControllerParameterType.Trigger && param.name == "Attack2")
@@ -45,55 +20,51 @@ public class Monster : EnemyController
                 break;
             }
         }
+    }
 
+    public override void GenerateStats()
+    {
+        strength = data.strength;
+        agility = data.agility;
+        endurance = data.endurance;
+        maxHp = GetMaxHp();
+        currentHp = maxHp;
+        activeBonuses = EnemyAbilityRegistry.GetAbilitiesForEnemy(data.enemyName);
+    }
+
+    // По ТЗ колонка «Здоровье» в таблице врагов уже и есть итоговое здоровье.
+    public override int GetMaxHp() => data.maxHp;
+
+    // Оружие монстра задаётся в EnemyData, а не полем weapon (там лежит награда).
+    public override int GetWeaponDamage() => data.weaponDamage;
+    public override DamageType GetDamageType() => DamageType.None;
+
+    public void Die() => m_animator.SetTrigger("Death");
+    public void Hurt() => m_animator.SetTrigger("Hurt");
+
+    public override void Attack()
+    {
         if (hasAttack2)
         {
-            string trigger = (Random.Range(0, 2) == 0) ? "Attack" : "Attack2";
-            m_animator.SetTrigger(trigger);
+            m_animator.SetTrigger(Random.Range(0, 2) == 0 ? "Attack" : "Attack2");
+            return;
         }
-        else
+
+        if (tempBool)
         {
-            if (tempBool)
-            {
-                m_animator.SetTrigger("SpecialAttack");
-                tempBool = false;
-            }
-            m_animator.SetTrigger("Attack");
+            m_animator.SetTrigger("SpecialAttack");
+            tempBool = false;
         }
+        m_animator.SetTrigger("Attack");
     }
-    public override int CalculateDamage()
-    {
-        Debug.Log("ПРИШЛО УРОНА ОТ ОРУЖИЯ: " + data.weaponDamage + " а урона от силы: " + strength);
-        return data.weaponDamage + strength + TempDamageModifier;
-    }
-    public override void PlayAttackAnimation()
-    {
-        Attack();
-    }
+
+    public override void PlayAttackAnimation() => Attack();
+
     public override void TakeDamage(int amount, CharacterBase attacker)
     {
         base.TakeDamage(amount, attacker);
+        Hurt();
         if (currentHp <= 0)
-        {
-            Hurt();
             Die();
-        }
-        else
-        {
-            Hurt();
-        }
-    }
-    public override void TakeDamage()
-    {
-        base.TakeDamage();
-        if (currentHp <= 0)
-        {
-            Hurt();
-            Die();
-        }
-        else
-        {
-            Hurt();
-        }
     }
 }

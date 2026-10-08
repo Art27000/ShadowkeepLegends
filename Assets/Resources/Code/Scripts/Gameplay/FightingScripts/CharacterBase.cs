@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,110 +11,72 @@ public abstract class CharacterBase : MonoBehaviour
     public int maxHp { get; set; }
     public int currentHp { get; set; }
     public Weapon weapon { get; set; }
-    public int TempDamageModifier { get; set; } = 0;
-    public int TempSpecialDamageModifier { get; set; } = 1;
-    public bool isPoisoned = false;
-    public int TempStrengthModifier { get; set; } = 0;
-    public int TempAgilityModifier { get; set; } = 0;
-    public int TempEnduranceModifier { get; set; } = 0;
-    public int baseDamage { get; private set; }
+
+    /// <summary>Выставляется перед Attack(), чтобы монстр показал особую анимацию (дыхание дракона).</summary>
     public bool tempBool = false;
-    public int poisonStacks = 0;
-    public bool ignoreWeaponPart = false;
 
-
-
+    /// <summary>Сколько атак персонаж совершил в текущем бою.</summary>
+    public int TurnNumber { get; private set; }
 
     public abstract void GenerateStats();
     public abstract int GetMaxHp();
-    public string getWeaponName()
+    public abstract void Attack();
+
+    public string getWeaponName() => weapon.weaponName;
+    public Button GetWeapon() => weapon.weaponObj;
+
+    public virtual int GetWeaponDamage() => weapon != null ? weapon.getDamage() : 0;
+    public virtual DamageType GetDamageType() => weapon != null ? weapon.Type : DamageType.None;
+
+    public void StartBattle()
     {
-        return weapon.weaponName;
-    }
-    public Button GetWeapon()
-    {
-        return weapon.weaponObj;
+        TurnNumber = 0;
+        tempBool = false;
     }
 
     public virtual void HealFull()
     {
         currentHp = GetMaxHp();
-        Debug.Log("хп восстановлено до максимального уровня: " + currentHp);
     }
-    public void StartTurnBonus()
-    {
-        foreach (var bonus in activeBonuses)
-            bonus.OnTurnStart(this, GameController.Instance);
-    }
+
+    /// <summary>Единственное место, где уменьшается здоровье. dmg уже посчитан с учётом всех эффектов.</summary>
     public virtual void TakeDamage(int dmg, CharacterBase attacker)
     {
-        foreach (var bonus in activeBonuses)
-            bonus.OnDefense(this, attacker, GameController.Instance);
-
-        if (ignoreWeaponPart && attacker?.weapon != null)
-        {
-            dmg -= attacker.weapon.getDamage();
-            if (dmg < 0) dmg = 0;
-            ignoreWeaponPart = false;
-        }
-
-        currentHp = Mathf.Max(currentHp - Mathf.Max(dmg - TempDamageModifier, 0), 0);
-        TempDamageModifier = 0;
+        currentHp = Mathf.Max(currentHp - Mathf.Max(dmg, 0), 0);
     }
 
-    public virtual void TakeDamage()
+    /// <summary>Один ход атаки по правилам ТЗ.</summary>
+    public void DoAttack(CharacterBase defender)
     {
-        if (isPoisoned)
-        {
-            currentHp = Mathf.Max(currentHp - poisonStacks, 0);
-            Debug.Log($"{name} получает {poisonStacks} урона от яда!");
+        TurnNumber++;
 
-            if (currentHp == 0)
-            {
-                isPoisoned = false;
-                poisonStacks = 0;
-                Debug.Log("POISON OFF");
-            }
+        if (!RollHit(defender))
+        {
+            Attack();
+            return;
         }
+
+        // Шаг 2: исходный урон = оружие + сила
+        var ctx = new DamageContext(this, defender, TurnNumber, GetWeaponDamage(), strength, GetDamageType());
+
+        foreach (var bonus in activeBonuses)          // шаг 3: эффекты атакующего
+            bonus.OnAttack(ctx);
+        foreach (var bonus in defender.activeBonuses) // шаг 4: эффекты цели
+            bonus.OnDefense(ctx);
+
+        tempBool = ctx.IsSpecialAttack;
+        Attack();
+        defender.TakeDamage(ctx.FinalDamage, this);   // шаг 5
+
+        Debug.Log($"{name} -> {defender.name}: {ctx.FinalDamage} урона (ход {TurnNumber}), осталось {defender.currentHp} HP");
     }
 
-    public void DoAttack(CharacterBase defender, CharacterBase attacker) 
+    /// <summary>Шаг 1: бросок 1..(ловкость атакующего + ловкость цели); попадание, если бросок > ловкости цели.</summary>
+    public bool RollHit(CharacterBase target)
     {
-        foreach (var bonus in activeBonuses)
-            bonus.OnAttack(this, defender, GameController.Instance);
-        if (CalculateHitChance(defender))
-        {
-            defender.TakeDamage(CalculateDamage(), attacker);
-            Debug.Log($"{this.name} атакует {defender.name}, у {defender.name} осталось {defender.currentHp} HP");
-        }
-    }
-    public abstract void Attack();
-
-    public bool CalculateHitChance(CharacterBase target)
-    {
-        int maxRange = target.agility + this.agility;
-        int roll = Random.Range(1, maxRange + 1);
-        Debug.Log("roll (max/roll)= " + maxRange + "/" + roll + " " + "target.getAgility() = " + target.agility);
-        if (roll <= target.agility)
-        {
-            Debug.Log($"{name} промахнулся по {target.name}! (бросок {roll} ≤ {target.agility})");
-            return false; // атака не попала
-        }
-        else
-        {
-            Debug.Log($"{name} попал по {target.name}! (бросок {roll} > {target.agility})");
-            return true; // атака успешна
-        }
-    }
-    public virtual int CalculateDamage()
-    {
-        baseDamage = weapon.getDamage() + strength;
-        int totalDamage = baseDamage + TempDamageModifier;
-        totalDamage = totalDamage*TempSpecialDamageModifier;
-        Debug.Log("Итоговый урон: " + totalDamage + " ПРИШЛО УРОНА ОТ ОРУЖИЯ: " 
-            + weapon.getDamage() + " а урона от силы: " + strength + "урона от бонусов: " + (totalDamage - baseDamage));
-        TempDamageModifier = 0;
-        TempSpecialDamageModifier = 1;
-        return totalDamage;
+        int roll = Random.Range(1, agility + target.agility + 1);
+        bool hit = roll > target.agility;
+        Debug.Log($"{name} по {target.name}: бросок {roll} (макс {agility + target.agility}), ловкость цели {target.agility} -> {(hit ? "попал" : "промах")}");
+        return hit;
     }
 }

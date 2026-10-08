@@ -45,26 +45,12 @@ public class GameController : MonoBehaviour
     CharacterBase player;
     private float targetHeroFill;
     private float targetMonsterFill;
-    private int currentIndex = 0;
-    private int[] shuffledIndexes;
+    private int defeatedCount = 0;
+    private const int WinsToVictory = 5; // spec: 5 wins in a row
     Weapon rewardWeapon = null;
 
     public static GameController Instance { get; internal set; }
 
-    private void ShuffleMonsters()
-    {
-        // создаём массив индексов [0..monsters.Length-1]
-        shuffledIndexes = Enumerable.Range(0, monsters.Length).ToArray();
-
-        // перемешиваем (Fisher–Yates)
-        for (int i = 0; i < shuffledIndexes.Length; i++)
-        {
-            int rand = Random.Range(i, shuffledIndexes.Length);
-            (shuffledIndexes[i], shuffledIndexes[rand]) = (shuffledIndexes[rand], shuffledIndexes[i]);
-        }
-
-        currentIndex = 0;
-    }
     //SPAWNERS
     public void SpawnHero()
     {
@@ -81,20 +67,9 @@ public class GameController : MonoBehaviour
     public void SpawnMonster()
     {
         // если ещё не перемешивали
-        if (shuffledIndexes == null)
-            ShuffleMonsters();
 
         // если все уже выбраны
-        if (currentIndex >= shuffledIndexes.Length)
-        {
-            winMenu.SetActive(true);
-            Debug.LogWarning("Все монстры уже были выбраны!");
-            return;
-
-        }
-
-        int ind = shuffledIndexes[currentIndex];
-        currentIndex++;
+        int ind = Random.Range(0, monsters.Length); // random enemy, repeats allowed
         monsterObj = Instantiate(monsters[ind].prefab);
 
         monsterCont = monsterObj.GetComponent<EnemyController>();
@@ -138,6 +113,8 @@ public class GameController : MonoBehaviour
     {
         this.player = heroCont;
         this.monster = monsterCont;
+        player.StartBattle();
+        monster.StartBattle();
 
         // Определяем, кто ходит первым
         if (player.agility >= monster.agility)
@@ -193,6 +170,7 @@ public class GameController : MonoBehaviour
     }
     private void HandleEnemyDeath(CharacterBase defender)
     {
+        defeatedCount++;
         heroCont.HealFull();
         SwitchHpPerc();
         Debug.Log($"{defender.name} повержен!");
@@ -219,6 +197,11 @@ public class GameController : MonoBehaviour
         OnEnemyDefeated(monsterCont, heroCont);
         while (weaponChooseMenu.activeInHierarchy)
             yield return null;
+        if (defeatedCount >= WinsToVictory)
+        {
+            winMenu.SetActive(true);
+            yield break;
+        }
         SpawnMonster();
         InitBattle();
         attack.gameObject.SetActive(true);
@@ -237,23 +220,9 @@ public class GameController : MonoBehaviour
         if (attacker == player && monster.currentHp > 0 && player.currentHp > 0)
         {
             // --- Урон от яда ---
-            if (defender.isPoisoned)
-            {
-                defender.TakeDamage();
-                SwitchHpPerc();
-                yield return new WaitForSeconds(2f);
-
-                // Проверка смерти от яда
-                if (defender.currentHp <= 0)
-                {
-                    HandleEnemyDeath(defender);
-                    yield break;
-                }
-            }
 
             // --- Обычная атака ---
-            attacker.Attack();
-            attacker.DoAttack(defender, attacker);
+            attacker.DoAttack(defender); // attack animation is triggered inside DoAttack
             SwitchHpPerc();
             yield return new WaitForSeconds(2f);
 
@@ -280,8 +249,7 @@ public class GameController : MonoBehaviour
     {
         if (attacker == monster && monster.currentHp > 0 && player.currentHp > 0)
         {
-            attacker.Attack();
-            attacker.DoAttack(defender, attacker);
+            attacker.DoAttack(defender); // attack animation is triggered inside DoAttack
             SwitchHpPerc();
             yield return new WaitForSeconds(2f);
             // Проверка конца боя

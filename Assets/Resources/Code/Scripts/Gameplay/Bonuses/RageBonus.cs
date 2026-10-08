@@ -1,31 +1,9 @@
-using UnityEngine;
-
-public class RageBonus : IBonus
+/// <summary>Ярость: +2 к урону в первые 3 хода, потом -1 к урону.</summary>
+public class RageBonus : BonusBase
 {
-    private int temp = 0;
-    public void OnAttack(CharacterBase self, CharacterBase target, GameController context)
+    public override void OnAttack(DamageContext ctx)
     {
-        if (context != null && temp < 3)
-        {
-            self.TempDamageModifier = 2;
-            context.ShowLog("Active bonus: Rage");
-            temp++;
-        }
-        else if (context != null)
-        {
-            self.TempDamageModifier = -1;
-        }
-        else
-        {
-            if (context == null)
-                Debug.Log("context is null");
-            if (temp < 3)
-                Debug.Log("HeroTurnCount <= 3");
-        }
-
+        ctx.Bonus += ctx.TurnNumber <= 3 ? 2 : -1;
+        if (ctx.TurnNumber <= 3) ctx.Log("Active bonus: Rage");
     }
-
-    public void OnDefense(CharacterBase self, CharacterBase attacker, GameController context) { }
-    public void OnTurnStart(CharacterBase self, GameController context) { }
 }
-

@@ -1,18 +1,12 @@
-using UnityEngine;
-
-public class DoubleDamageFromBluntBonus : IBonus
+/// <summary>РЎРєРµР»РµС‚: РїРѕР»СѓС‡Р°РµС‚ РІРґРІРѕРµ Р±РѕР»СЊС€Рµ СѓСЂРѕРЅР° РѕС‚ РґСЂРѕР±СЏС‰РµРіРѕ РѕСЂСѓР¶РёСЏ.</summary>
+public class DoubleDamageFromBluntBonus : BonusBase
 {
-    public void OnDefense(CharacterBase self, CharacterBase attacker, GameController context)
+    public override void OnDefense(DamageContext ctx)
     {
-        if (attacker?.weapon != null && attacker.weapon.damageType == "Blunt")
+        if (ctx.DamageType == DamageType.Blunt)
         {
-            int extra = attacker.weapon.getDamage(); // добавляем ещё столько же урона
-            self.currentHp = Mathf.Max(self.currentHp - extra, 0);
-            context.ShowLog($"{self.name} gets double damage from Blunt weapon!");
+            ctx.Multiplier *= 2;
+            ctx.Log($"{ctx.Defender.name} gets double damage from Blunt weapon!");
         }
     }
-
-    public void OnAttack(CharacterBase self, CharacterBase target, GameController context) { }
-    public void OnTurnStart(CharacterBase self, GameController context) { }
 }
-

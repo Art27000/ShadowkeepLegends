@@ -1,27 +1,12 @@
-using UnityEngine;
-
-public class PoisonBonus : IBonus
+/// <summary>Яд: +1 урона на втором ходу, +2 на третьем и так далее (по ТЗ).</summary>
+public class PoisonBonus : BonusBase
 {
-    public void OnAttack(CharacterBase self, CharacterBase target, GameController context)
+    public override void OnAttack(DamageContext ctx)
     {
-        if (target.currentHp <= 0) return;
-
-        if (!target.isPoisoned)
+        if (ctx.TurnNumber >= 2)
         {
-            target.isPoisoned = true;
-            target.poisonStacks = 1;
-            context?.ShowLog($"{target.name} is poisoned!");
+            ctx.Bonus += ctx.TurnNumber - 1;
+            ctx.Log("Active bonus: Poison");
         }
-        else
-        {
-            target.poisonStacks++;
-            context?.ShowLog($"{target.name} gets posion buff (x{target.poisonStacks})!");
-        }
-
-        target.TempSpecialDamageModifier = target.poisonStacks;
     }
-
-    public void OnDefense(CharacterBase self, CharacterBase attacker, GameController context) { }
-    public void OnTurnStart(CharacterBase self, GameController context) { }
 }
-

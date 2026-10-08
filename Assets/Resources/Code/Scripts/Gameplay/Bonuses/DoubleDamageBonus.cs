@@ -1,29 +1,12 @@
-using UnityEngine;
-
-public class DoubleDamageBonus : IBonus
+/// <summary>Порыв к действию: в первый ход наносит двойной урон оружием (+ урон оружия ещё раз).</summary>
+public class DoubleDamageBonus : BonusBase
 {
-    private int temp=0;
-    public void OnAttack(CharacterBase self, CharacterBase target, GameController context)
+    public override void OnAttack(DamageContext ctx)
     {
-        if (context != null && temp < 1)
+        if (ctx.TurnNumber == 1)
         {
-            self.TempSpecialDamageModifier = 2;
-            context.ShowLog("Active bonus: Impulse to action");
-            temp++;
+            ctx.Bonus += ctx.WeaponDamage;
+            ctx.Log("Active bonus: Impulse to action");
         }
-        else if (context != null && temp >= 1)
-        {
-            self.TempSpecialDamageModifier = 1;
-        }
-        else
-        {
-            if (context == null)
-                Debug.Log("context is null");
-            if (temp < 3)
-                Debug.Log("HeroTurnCount <= 3");
-        }
-
     }
-    public void OnDefense(CharacterBase self, CharacterBase attacker, GameController context) { }
-    public void OnTurnStart(CharacterBase self, GameController context) { }
 }

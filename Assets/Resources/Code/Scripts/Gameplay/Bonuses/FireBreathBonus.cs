@@ -1,22 +1,12 @@
-using Unity.VisualScripting;
-using UnityEngine;
-
-public class FireBreathBonus : IBonus
+/// <summary>Каждый 3-й ход дышит огнём: +3 урона.</summary>
+public class FireBreathBonus : BonusBase
 {
-    private int turnCounter = 0;
-
-    public void OnTurnStart(CharacterBase self, GameController context) { }
-    public void OnAttack(CharacterBase self, CharacterBase target, GameController context)
+    public override void OnAttack(DamageContext ctx)
     {
-        turnCounter++;
-        if (turnCounter % 3 == 0)
+        if (ctx.TurnNumber % 3 == 0)
         {
-            if (target != null)
-            {
-                self.TempDamageModifier = 3;
-                self.tempBool = true;
-            }
+            ctx.Bonus += 3;
+            ctx.IsSpecialAttack = true;
         }
     }
-    public void OnDefense(CharacterBase self, CharacterBase attacker, GameController context) { }
 }

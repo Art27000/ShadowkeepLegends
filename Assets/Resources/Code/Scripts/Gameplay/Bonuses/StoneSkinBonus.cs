@@ -1,20 +1,9 @@
-using UnityEngine;
-
-public class StoneSkinBonus : IBonus
+/// <summary>Каменная кожа: получаемый урон снижается на значение выносливости.</summary>
+public class StoneSkinBonus : BonusBase
 {
-    public void OnAttack(CharacterBase self, CharacterBase target, GameController context) { }
-    public void OnDefense(CharacterBase self, CharacterBase attacker, GameController context)
+    public override void OnDefense(DamageContext ctx)
     {
-        if (context != null)
-        {
-            self.TempDamageModifier = self.endurance;
-            context.ShowLog("Active bonus: Stone Skin");
-        }
-        else
-        {
-            if (context == null)
-                Debug.Log("context is null");
-        }
+        ctx.Reduction += ctx.Defender.endurance;
+        ctx.Log("Active bonus: Stone Skin");
     }
-    public void OnTurnStart(CharacterBase self, GameController context) { }
 }
