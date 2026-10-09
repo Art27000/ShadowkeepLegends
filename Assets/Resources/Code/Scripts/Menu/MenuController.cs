@@ -9,10 +9,15 @@ public class MenuController : MonoBehaviour
 
     private void Start()
     {
-        if (GameController.isRestart)
-        {
-            OnStartClick();
-        }
+        // Флаг одноразовый: прочитали и сразу сбросили, чтобы он не «залипал»
+        // и не открывал выбор класса при следующих заходах в меню.
+        bool restart = GameController.isRestart;
+        GameController.isRestart = false;
+
+        if (restart)
+            OnStartClick(); // после рестарта сразу на выбор класса
+        else
+            OnBackClick();  // всегда гарантируем: Main открыт, Choice закрыт
     }
 
     public void OnStartClick()

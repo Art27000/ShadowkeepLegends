@@ -27,6 +27,10 @@ public class GameController : MonoBehaviour
     public GameObject panel;
     public GameObject looseMenu;
     public static bool isRestart = false;
+
+    // Static fields survive between play sessions when Domain Reload is disabled in the editor.
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics() { isRestart = false; }
     private CharacterClass index;
     public GameObject chooseMenu;
     public GameObject winMenu;
@@ -279,7 +283,8 @@ public class GameController : MonoBehaviour
     {
         Weapon oldWeapon = player.weapon;
         player.weapon = newWeapon;
-        Destroy(WeaponPrefab);
+        if (WeaponPrefab != null)
+            Destroy(WeaponPrefab.gameObject); // Button is only a component: destroy the GameObject, not just it
         WeaponPrefab = Instantiate(heroCont.GetWeapon(), canv.transform);
         weaponName.text = heroCont.getWeaponName();
     }
