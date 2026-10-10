@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Hero", menuName = "Heroes/Hero Data")]
@@ -11,4 +10,6 @@ public class PlayerData : ScriptableObject
     [TextArea] public string Bonus_lvl2;
     [TextArea] public string Bonus_lvl3;
     public GameObject prefab;
+    [Tooltip("Смещение относительно точки спавна на сцене: компенсирует пивот спрайта, чтобы ноги стояли на земле.")]
+    public Vector3 spawnOffset;
 }

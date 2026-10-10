@@ -24,3 +24,4 @@ MonoBehaviour:
     1-\u0433\u043E \u0443\u0440\u043E\u0432\u043D\u044F"
   reward: {fileID: 11400000, guid: 57a41df0176dfbf4abb26ed126d87ce2, type: 2}
   prefab: {fileID: 6076006152082470142, guid: 6fefcff896c1a1343918e07ec8bdb375, type: 3}
+  spawnOffset: {x: 0, y: -0.91, z: 0}

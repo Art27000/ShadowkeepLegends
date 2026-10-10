@@ -21,3 +21,4 @@ MonoBehaviour:
   specialAbility: 
   reward: {fileID: 11400000, guid: 3302beac23a40d14b8b013bf0afdd3e8, type: 2}
   prefab: {fileID: 8954472931770401179, guid: 1fdbf30fe0473d640bd8a0fbb37e3ad1, type: 3}
+  spawnOffset: {x: 0, y: 0.71, z: 0}

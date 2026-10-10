@@ -12,4 +12,6 @@ public class EnemyData : ScriptableObject
     [TextArea] public string specialAbility; 
     public Weapon reward; 
     public GameObject prefab; 
+    [Tooltip("Смещение относительно точки спавна на сцене: компенсирует пивот спрайта, чтобы ноги стояли на земле.")]
+    public Vector3 spawnOffset;
 }

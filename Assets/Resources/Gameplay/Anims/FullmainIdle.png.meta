@@ -27,7 +27,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 1
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -66,7 +66,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 25
@@ -90,7 +90,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
@@ -147,12 +147,12 @@ TextureImporter:
       name: FullmainIdle_0
       rect:
         serializedVersion: 2
-        x: 18
+        x: 0
         y: 11
-        width: 17
-        height: 29
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 48
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -169,12 +169,12 @@ TextureImporter:
       name: FullmainIdle_1
       rect:
         serializedVersion: 2
-        x: 66
+        x: 48
         y: 11
-        width: 17
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 48
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -191,12 +191,12 @@ TextureImporter:
       name: FullmainIdle_2
       rect:
         serializedVersion: 2
-        x: 114
+        x: 96
         y: 11
-        width: 18
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 48
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -213,12 +213,12 @@ TextureImporter:
       name: FullmainIdle_3
       rect:
         serializedVersion: 2
-        x: 162
+        x: 144
         y: 11
-        width: 17
-        height: 29
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 48
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -235,12 +235,12 @@ TextureImporter:
       name: FullmainIdle_4
       rect:
         serializedVersion: 2
-        x: 210
+        x: 192
         y: 11
-        width: 17
-        height: 29
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 48
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -257,12 +257,12 @@ TextureImporter:
       name: FullmainIdle_5
       rect:
         serializedVersion: 2
-        x: 258
+        x: 240
         y: 11
-        width: 17
-        height: 29
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 48
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -279,12 +279,12 @@ TextureImporter:
       name: FullmainIdle_6
       rect:
         serializedVersion: 2
-        x: 306
+        x: 288
         y: 11
-        width: 17
-        height: 29
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 48
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

@@ -23,6 +23,10 @@ public class GameController : MonoBehaviour
     public Button attack;
     public Text logs;
 
+    [Header("SPAWN")]
+    [SerializeField] private Transform heroSpawnPoint;
+    [SerializeField] private Transform monsterSpawnPoint;
+
     [Header("MENU")]
     public GameObject panel;
     public GameObject looseMenu;
@@ -56,12 +60,24 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get; internal set; }
 
     //SPAWNERS
+    // Position comes from a scene marker plus a per-character offset (data),
+    // not from the prefab transform, so moving the marker moves every spawn.
+    private static Vector3 SpawnPosition(Transform point, Vector3 offset, GameObject prefab)
+    {
+        if (point == null)
+        {
+            Debug.LogError("Spawn point is not assigned in GameController, falling back to the prefab position.");
+            return prefab.transform.position;
+        }
+        return point.position + offset;
+    }
+
     public void SpawnHero()
     {
-        GameObject prefab = hc.heroes[(int)MenuController.index].prefab;
-        Vector2 pos = prefab.transform.position;
-        Quaternion rot = prefab.transform.rotation;
-        playerObj = Instantiate(prefab, pos, rot);
+        PlayerData heroData = hc.heroes[(int)MenuController.index];
+        GameObject prefab = heroData.prefab;
+        Vector3 pos = SpawnPosition(heroSpawnPoint, heroData.spawnOffset, prefab);
+        playerObj = Instantiate(prefab, pos, prefab.transform.rotation);
         heroCont = playerObj.GetComponent<PlayerController>();
         heroCont.SetHc(hc);
         heroCont.LevelUp(MenuController.index);
@@ -74,7 +90,9 @@ public class GameController : MonoBehaviour
 
         // если все уже выбраны
         int ind = Random.Range(0, monsters.Length); // random enemy, repeats allowed
-        monsterObj = Instantiate(monsters[ind].prefab);
+        EnemyData enemyData = monsters[ind];
+        Vector3 monsterPos = SpawnPosition(monsterSpawnPoint, enemyData.spawnOffset, enemyData.prefab);
+        monsterObj = Instantiate(enemyData.prefab, monsterPos, enemyData.prefab.transform.rotation);
 
         monsterCont = monsterObj.GetComponent<EnemyController>();
         if (monsterCont == null)
