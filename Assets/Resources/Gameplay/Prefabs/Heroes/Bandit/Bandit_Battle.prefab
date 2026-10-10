@@ -57,7 +57,10 @@ PrefabInstance:
       value: Bandit_Battle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8923667783439350391, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
+    - {fileID: 9215803383077197779, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
+    - {fileID: 38859981104996072, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6372063083057586369, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}

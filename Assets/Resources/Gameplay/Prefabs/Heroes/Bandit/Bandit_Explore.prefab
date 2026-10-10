@@ -48,9 +48,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3087045308750184342, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644871771173415580, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6372063083057586369, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
       propertyPath: m_Name
       value: Bandit_Explore
+      objectReference: {fileID: 0}
+    - target: {fileID: 6988201001606478540, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -66,6 +78,21 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: -4185985506360757354}
   m_SourcePrefab: {fileID: 100100000, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
+--- !u!4 &257722890154162439 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6988201001606478540, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
+  m_PrefabInstance: {fileID: 7163131695706162123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &564991034026076348 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7259747663830051703, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
+  m_PrefabInstance: {fileID: 7163131695706162123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2530293015355828567 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4644871771173415580, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
+  m_PrefabInstance: {fileID: 7163131695706162123}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4253249412176765706 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6372063083057586369, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
@@ -105,8 +132,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0022453566, y: 0.09599288}
-  m_Size: {x: 0.8975586, y: 1.1033854}
+  m_Offset: {x: -0.0022453666, y: 0.6720855}
+  m_Size: {x: 0.8975586, y: 1.0544376}
   m_Direction: 0
 --- !u!50 &2095286356795635557
 Rigidbody2D:
@@ -162,8 +189,13 @@ MonoBehaviour:
   nonStickyWallLayer:
     serializedVersion: 2
     m_Bits: 512
-  groundCheck: {fileID: 6988201001606478540, guid: 799b13f6321fc244bb096f0d0db2f5f5, type: 3}
-  leftWallCheck: {fileID: 4644871771173415580, guid: 799b13f6321fc244bb096f0d0db2f5f5, type: 3}
-  rightWallCheck: {fileID: 3087045308750184342, guid: 799b13f6321fc244bb096f0d0db2f5f5, type: 3}
-  rb: {fileID: 1005667010434430811, guid: 799b13f6321fc244bb096f0d0db2f5f5, type: 3}
-  spriteRenderer: {fileID: 7259747663830051703, guid: 799b13f6321fc244bb096f0d0db2f5f5, type: 3}
+  groundCheck: {fileID: 257722890154162439}
+  leftWallCheck: {fileID: 2530293015355828567}
+  rightWallCheck: {fileID: 5314226710118366301}
+  rb: {fileID: 2095286356795635557}
+  spriteRenderer: {fileID: 564991034026076348}
+--- !u!4 &5314226710118366301 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3087045308750184342, guid: f6d96dc6315a43e4f946b20f3dd44f7e, type: 3}
+  m_PrefabInstance: {fileID: 7163131695706162123}
+  m_PrefabAsset: {fileID: 0}
