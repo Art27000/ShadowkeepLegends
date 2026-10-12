@@ -44,11 +44,18 @@ namespace Shadowkeep.Battle
 
         // ---- Управление ходом ----
 
-        public bool CanPerform(IBattleAction a, Combatant target)
+        /// <summary>Хватает ли очков действий, нет ли перезарядки и доступно ли действие (цель не проверяется).</summary>
+        public bool CanUse(IBattleAction a)
         {
             var actor = Current;
             if (Outcome != BattleOutcome.Ongoing || actor == null || !actor.IsAlive) return false;
-            if (actor.ActionPoints < a.ApCost || actor.CooldownOf(a) > 0 || !a.IsAvailable(actor)) return false;
+            return actor.ActionPoints >= a.ApCost && actor.CooldownOf(a) == 0 && a.IsAvailable(actor);
+        }
+
+        public bool CanPerform(IBattleAction a, Combatant target)
+        {
+            var actor = Current;
+            if (!CanUse(a)) return false;
             switch (a.Target)
             {
                 case TargetRule.SingleEnemy: return target != null && target.IsAlive && target.Team != actor.Team;
@@ -170,6 +177,6 @@ namespace Shadowkeep.Battle
         }
 
         private void Raise(BattleEventType type, Combatant actor, Combatant target, int amount, string text = null)
-            => Raised?.Invoke(new BattleEvent { Type = type, Actor = actor, Target = target, Amount = amount, Text = text });
+            => Raised?.Invoke(new BattleEvent { Type = type, Actor = actor, Target = target, Amount = amount, Text = text, TargetHp = target != null ? target.Hp : 0 });
     }
 }

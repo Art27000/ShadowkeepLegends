@@ -30,6 +30,8 @@ namespace Shadowkeep.Battle
         public Combatant Actor;
         public Combatant Target;
         public int Amount;
+        /// <summary>Здоровье цели сразу после этого события (для плавного показа в интерфейсе).</summary>
+        public int TargetHp;
         public string Text;
     }
 
