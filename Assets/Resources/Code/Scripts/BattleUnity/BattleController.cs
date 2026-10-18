@@ -33,7 +33,12 @@ public sealed class BattleController : MonoBehaviour
     private Coroutine routine;
 
     public void ToggleAuto() { Auto = !Auto; }
-    public void ToggleSpeed() { Speed = Speed == 1 ? 2 : 1; }
+    /// <summary>x2 ускоряет паузы боя и анимации бойцов (скорость аниматора). Время игры не меняем: интерфейс остаётся обычным.</summary>
+    public void ToggleSpeed()
+    {
+        Speed = Speed == 1 ? 2 : 1;
+        foreach (var view in views.Values) if (view != null) view.SetAnimationSpeed(Speed);
+    }
     public void RequestRestart() { RestartRequested?.Invoke(); }
 
     public void Begin(IList<UnitSetup> heroes, IList<UnitSetup> enemies, int seed)
@@ -73,6 +78,7 @@ public sealed class BattleController : MonoBehaviour
         foreach (var legacy in go.GetComponents<CharacterBase>()) Destroy(legacy);
         var view = go.AddComponent<UnitView>();
         view.Init(s.Combatant);
+        view.SetAnimationSpeed(Speed);
         views[s.Combatant] = view;
     }
 
@@ -155,7 +161,8 @@ public sealed class BattleController : MonoBehaviour
             case BattleEventType.Hit:
                 ViewOf(e.Actor)?.PlayAttack(e.Text == "special");
                 yield return Wait(0.35f);
-                ViewOf(e.Target)?.PlayHurt();
+                // Смертельный удар: сразу смерть, без «получения урона».
+                if (e.TargetHp <= 0) ViewOf(e.Target)?.PlayDeath(); else ViewOf(e.Target)?.PlayHurt();
                 hud.SetHp(e.Target, e.TargetHp);
                 hud.Float(e.Target, e.Amount > 0 ? "-" + e.Amount : "0", e.Amount > 0 ? new Color(1f, 0.35f, 0.3f) : Color.gray);
                 hud.Log($"{e.Actor.Name} → {e.Target.Name}: {e.Amount} урона");

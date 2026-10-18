@@ -16,7 +16,7 @@ public sealed class BattleHud : MonoBehaviour
     private sealed class Widget
     {
         public Combatant C; public UnitView View;
-        public RectTransform Root, Fill; public Text Label; public Image Marker; public Button TargetButton;
+        public RectTransform Root, Fill; public Text Label; public Image Marker;
     }
 
     private sealed class ActionButton { public IBattleAction Action; public Button Button; public Text Label; }
@@ -122,10 +122,10 @@ public sealed class BattleHud : MonoBehaviour
 
         var bar = NewRect("Bar", w.Root);
         bar.sizeDelta = new Vector2(220, 22); bar.anchoredPosition = new Vector2(0, -10);
-        bar.gameObject.AddComponent<Image>().color = new Color(0.1f, 0.1f, 0.1f, 0.85f);
+        var barImg = bar.gameObject.AddComponent<Image>(); barImg.color = new Color(0.1f, 0.1f, 0.1f, 0.85f); barImg.raycastTarget = false;
         w.Fill = NewRect("Fill", bar);
         Stretch(w.Fill);
-        w.Fill.gameObject.AddComponent<Image>().color = c.Team == Team.Heroes ? new Color(0.3f, 0.85f, 0.35f) : new Color(0.9f, 0.25f, 0.2f);
+        var fillImg = w.Fill.gameObject.AddComponent<Image>(); fillImg.color = c.Team == Team.Heroes ? new Color(0.3f, 0.85f, 0.35f) : new Color(0.9f, 0.25f, 0.2f); fillImg.raycastTarget = false;
 
         w.Label = NewText(w.Root, "", 26, TextAnchor.MiddleCenter, Color.white);
         w.Label.rectTransform.anchoredPosition = new Vector2(0, 22);
@@ -135,19 +135,8 @@ public sealed class BattleHud : MonoBehaviour
         markerRect.sizeDelta = new Vector2(34, 34); markerRect.anchoredPosition = new Vector2(0, 75);
         markerRect.localRotation = Quaternion.Euler(0, 0, 45);
         w.Marker = markerRect.gameObject.AddComponent<Image>();
-        w.Marker.color = new Color(1f, 0.9f, 0.2f);
+        w.Marker.color = new Color(1f, 0.9f, 0.2f); w.Marker.raycastTarget = false;
         markerRect.gameObject.SetActive(false);
-
-        // Невидимая кнопка поверх бойца: по ней игрок выбирает цель.
-        var tr = NewRect("Target", w.Root);
-        tr.sizeDelta = new Vector2(260, 320); tr.anchoredPosition = new Vector2(0, -200);
-        var timg = tr.gameObject.AddComponent<Image>();
-        timg.color = new Color(1, 1, 1, 0.001f);
-        w.TargetButton = tr.gameObject.AddComponent<Button>();
-        w.TargetButton.targetGraphic = timg;
-        var captured = c;
-        w.TargetButton.onClick.AddListener(() => controller.TurnInput.PickTarget(captured));
-        tr.gameObject.SetActive(false);
 
         widgets[c] = w;
         SetHp(c, c.Hp);
@@ -211,7 +200,11 @@ public sealed class BattleHud : MonoBehaviour
 
     private void HideTargets()
     {
-        foreach (var w in widgets.Values) { w.Marker.gameObject.SetActive(false); w.TargetButton.gameObject.SetActive(false); }
+        foreach (var w in widgets.Values)
+        {
+            w.Marker.gameObject.SetActive(false);
+            if (w.View != null) w.View.SetHighlight(HighlightMode.None);
+        }
     }
 
     // ---------- Журнал, всплывающий текст, итог ----------
@@ -282,17 +275,48 @@ public sealed class BattleHud : MonoBehaviour
         endTurnButton.interactable = !choosingTarget;
         cancelButton.gameObject.SetActive(choosingTarget);
 
-        HideTargets();
-        if (choosingTarget)
+        if (choosingTarget) UpdateTargeting(input);
+        else HideTargets(); // подсветку не сбрасываем каждый кадр, только когда выбор цели закончился
+    }
+
+    /// <summary>Подсвечивает доступные цели и принимает клик по самому спрайту (наведение мыши усиливает подсветку).</summary>
+    private void UpdateTargeting(PlayerTurnInput input)
+    {
+        var cam = Camera.main;
+        if (cam == null) return;
+
+        Vector2 pointer = Input.mousePosition;
+        bool overUi = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+
+        Combatant hovered = null;
+        float bestDistance = float.MaxValue;
+        var targets = new List<Combatant>(input.ValidTargets(input.PendingAction));
+        foreach (var other in widgets.Values)
         {
-            foreach (var target in input.ValidTargets(input.PendingAction))
-            {
-                Widget w;
-                if (!widgets.TryGetValue(target, out w)) continue;
-                w.Marker.gameObject.SetActive(true);
-                w.TargetButton.gameObject.SetActive(true);
-            }
+            if (targets.Contains(other.C)) continue;
+            other.Marker.gameObject.SetActive(false);
+            if (other.View != null) other.View.SetHighlight(HighlightMode.None);
         }
+        foreach (var target in targets)
+        {
+            Widget w;
+            if (!widgets.TryGetValue(target, out w) || w.View == null) continue;
+            Rect rect = w.View.ScreenRect(cam);
+            if (overUi || !rect.Contains(pointer)) continue;
+            float d = (rect.center - pointer).sqrMagnitude; // при наложении выбираем ближайшего к клику
+            if (d < bestDistance) { bestDistance = d; hovered = target; }
+        }
+
+        foreach (var target in targets)
+        {
+            Widget w;
+            if (!widgets.TryGetValue(target, out w) || w.View == null) continue;
+            w.Marker.gameObject.SetActive(true);
+            w.View.SetHighlight(target == hovered ? HighlightMode.Hovered : HighlightMode.Selectable);
+        }
+
+        if (hovered != null && Input.GetMouseButtonDown(0) && input.PickTarget(hovered))
+            widgets[hovered].View.PlaySelected();
     }
 
     private void LateUpdate()
